@@ -1,0 +1,77 @@
+;
+; KernelDriverNOHOOK.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=KernelDriverNOHOOK.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+KernelDriverNOHOOK_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+KernelDriverNOHOOK.sys  = 1,,
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%KernelDriverNOHOOK.DeviceDesc%=KernelDriverNOHOOK_Device, Root\KernelDriverNOHOOK ; TODO: edit hw-id
+
+[KernelDriverNOHOOK_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+KernelDriverNOHOOK.sys
+
+;-------------- Service installation
+[KernelDriverNOHOOK_Device.NT.Services]
+AddService = KernelDriverNOHOOK,%SPSVCINST_ASSOCSERVICE%, KernelDriverNOHOOK_Service_Inst
+
+; -------------- KernelDriverNOHOOK driver install sections
+[KernelDriverNOHOOK_Service_Inst]
+DisplayName    = %KernelDriverNOHOOK.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\KernelDriverNOHOOK.sys
+
+;
+;--- KernelDriverNOHOOK_Device Coinstaller installation ------
+;
+
+[KernelDriverNOHOOK_Device.NT.CoInstallers]
+AddReg=KernelDriverNOHOOK_Device_CoInstaller_AddReg
+CopyFiles=KernelDriverNOHOOK_Device_CoInstaller_CopyFiles
+
+[KernelDriverNOHOOK_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[KernelDriverNOHOOK_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[KernelDriverNOHOOK_Device.NT.Wdf]
+KmdfService =  KernelDriverNOHOOK, KernelDriverNOHOOK_wdfsect
+[KernelDriverNOHOOK_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "KernelDriverNOHOOK Installation Disk"
+KernelDriverNOHOOK.DeviceDesc = "KernelDriverNOHOOK Device"
+KernelDriverNOHOOK.SVCDESC = "KernelDriverNOHOOK Service"
