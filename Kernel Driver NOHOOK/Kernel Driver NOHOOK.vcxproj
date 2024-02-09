@@ -114,10 +114,16 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="communication.c" />
     <ClCompile Include="KernelDriverNOHOOK.c" />
+    <ClCompile Include="listeners.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="communication.h" />
+    <ClInclude Include="data.h" />
     <ClInclude Include="KernelDriverNOHOOK.h" />
+    <ClInclude Include="listeners.h" />
+    <ClInclude Include="messages.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
