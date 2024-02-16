@@ -13,6 +13,50 @@ struct view_matrix_t {
 };
 
 
+struct Colour {
+	float r, g, b, a;
+
+	constexpr Colour(
+		const float r = 0.0f,
+		const float g = 0.0f,
+		const float b = 0.0f,
+		const float a = 0.0f) noexcept :
+		r(r), g(g), b(b), a(a) { }
+
+	//convert rgba to float[4]
+	constexpr operator float* () noexcept {
+		return reinterpret_cast<float*>(this);
+	}
+
+};
+
+
+struct Vector2 {
+
+	constexpr Vector2(
+		const float x = 0.0f,
+		const float y = 0.0f) noexcept :
+		x(x), y(y) { }
+
+	constexpr const Vector2 operator-(const Vector2& other) const noexcept {
+		return Vector2(x - other.x, y - other.y);
+	}
+
+	constexpr const Vector2 operator+(const Vector2& other) const noexcept {
+		return Vector2(x + other.x, y + other.y);
+	}
+
+	constexpr const Vector2 operator*(const float other) const noexcept {
+		return Vector2(x * other, y * other);
+	}
+
+	constexpr const Vector2 operator/(const float other) const noexcept {
+		return Vector2(x / other, y / other);
+	}
+
+	float x, y;
+};
+
 struct Vector3 {
 	constexpr Vector3(
 		const float x = 0.0f,

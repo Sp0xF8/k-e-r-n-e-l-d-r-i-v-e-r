@@ -7,15 +7,15 @@
 
 namespace Data {
 
-	KernelInterface *Driver = new KernelInterface("\\\\.\\KernelDriverNOHOOK");
-	ULONG client_dll;
-	ULONG ProcessID;
+	extern KernelInterface *Driver;
+	extern ULONG client_dll;
+	extern ULONG ProcessID;
 
-	int screen_width;
-	int screen_height;
+	extern int screen_width;
+	extern int screen_height;
 
-	uint64_t LocalPlayerPawn;
-	uint64_t EntityList;
+	extern uint64_t LocalPlayerPawn;
+	extern uint64_t EntityList;
 
 
 	bool init();

@@ -1,10 +1,13 @@
 #include "framework.h"
+#include "visualiser.h"
 #include "RepeatableData.h"
 
 
 bool Framework::run() {
 
 	// Run the game loop
+
+	Visualiser::Run();
 
 
 
@@ -16,10 +19,12 @@ bool Framework::init() {
 
 	// Get setup info from krnl
 
-	if(!Data::init()) return false;
+	//if(!Data::init()) return false;
 
 
 	//setup overlay
+
+	if(!Visualiser::Init()) return false;
 
 
 
@@ -34,11 +39,9 @@ bool Framework::init() {
 
 void Framework::shutdown() {
 
-	// Shutdown the renderer
-	
-	// Shutdown the window
+	//shutdown the overlay
 
-	// shutdown device
+
 
 }
 
