@@ -127,11 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="framework.cpp" />
     <ClCompile Include="Kernel Driver Controller.cpp" />
+    <ClCompile Include="RepeatableData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="communication.hpp" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="kernelinterface.hpp" />
+    <ClInclude Include="offsets.h" />
+    <ClInclude Include="RepeatableData.h" />
+    <ClInclude Include="structs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

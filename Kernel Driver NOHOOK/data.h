@@ -2,7 +2,7 @@
 
 #include <ntdef.h>
 
-ULONG CSClient_DllBase;
+ULONG CSClient_DllBase, ProcessID;
 
 PDEVICE_OBJECT pDeviceObject;
 

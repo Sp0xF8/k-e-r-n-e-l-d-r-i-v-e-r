@@ -2,17 +2,27 @@
 //
 
 #include <iostream>
-#include "kernelinterface.hpp"
+
+#include "framework.h"
+#include <Windows.h>
 
 int main()
 {
-    KernelInterface Driver = KernelInterface("\\\\.\\KernelDriverNOHOOK");
 
-    ULONG Address = Driver.GetClientAddress();
+	if (!Framework::init()) { Framework::shutdown(); }
 
-    std::cout << "Client.dll Base Address: " << Address << std::endl;
+    std::cout << "Cheat Loaded! - Press END Key to Exit!" << std::endl;
 
-    std::cin.get();
+	while (true)
+		{
+			if (!Framework::run()) { Framework::shutdown(); }
+
+			if (GetAsyncKeyState(VK_END) & 1)
+			{
+				Framework::shutdown();
+				break;
+			}
+		}
 
     return 0;
 
