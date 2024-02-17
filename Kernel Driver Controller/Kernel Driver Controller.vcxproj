@@ -134,38 +134,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="draw.cpp" />
     <ClCompile Include="framework.cpp" />
     <ClCompile Include="Kernel Driver Controller.cpp" />
     <ClCompile Include="RepeatableData.cpp" />
-    <ClCompile Include="visualiser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="communication.hpp" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="draw.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="kernelinterface.hpp" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="RepeatableData.h" />
     <ClInclude Include="structs.h" />
-    <ClInclude Include="visualiser.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="LinePixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="LineVertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
