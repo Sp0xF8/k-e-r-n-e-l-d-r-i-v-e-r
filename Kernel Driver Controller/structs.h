@@ -23,9 +23,10 @@ struct Colour {
 		const float a = 0.0f) noexcept :
 		r(r), g(g), b(b), a(a) { }
 
-	//convert rgba to float[4]
-	constexpr operator float* () noexcept {
-		return reinterpret_cast<float*>(this);
+	
+	float* ReturnFloats() {
+		float result[4] = { r, g, b, a };
+		return result;
 	}
 
 };

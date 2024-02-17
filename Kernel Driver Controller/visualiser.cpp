@@ -122,6 +122,11 @@ bool Visualiser::CreateRenderTarget() {
 	}
 
 	pBackBuffer->Release();
+
+
+	//set the render target
+
+	pDeviceContext->OMSetRenderTargets(1, &pRenderTarget, NULL);
 	return true;
 }
 
