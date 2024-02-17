@@ -41,6 +41,8 @@ void Framework::shutdown() {
 
 	//shutdown the overlay
 
+	Visualiser::Shutdown();
+
 
 
 }

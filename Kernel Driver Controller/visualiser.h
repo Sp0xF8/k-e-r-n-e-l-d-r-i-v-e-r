@@ -17,6 +17,7 @@ namespace Visualiser {
 	extern ID3D11RenderTargetView* pRenderTarget;
 
 	int Init();
+	void Shutdown();
 
 	void Run();
 
@@ -31,6 +32,8 @@ namespace Visualiser {
 
 	bool CreateDeviceD3D(HWND hWnd);
 	void DestroyDeviceD3D();
+
+
 
 
 

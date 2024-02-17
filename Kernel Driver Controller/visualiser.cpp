@@ -1,6 +1,7 @@
 #include "visualiser.h"
-
+#include "draw.h"
 #include "RepeatableData.h"
+#include "structs.h"
 
 
 //creating a window and setting up the directx 11 device, ready to render directx objects
@@ -134,6 +135,13 @@ bool Visualiser::CreateRenderTarget() {
 
 bool Visualiser::BeingScene() {
 
+	pDeviceContext->OMSetRenderTargets(1, &pRenderTarget, NULL);
+
+
+	//set viewport
+	auto viewport = CD3D11_VIEWPORT(0.0f, 0.0f, 800.0f, 600.0f);
+	pDeviceContext->RSSetViewports(1, &viewport);
+
 	//set background color
 	float transparent[4] = { 0.25f, 0.5f, 1.0f, 1.0f };
 
@@ -166,11 +174,21 @@ int Visualiser::Init() {
 	return 0;
 }
 
+void Visualiser::Shutdown() {
+
+	DestroyDeviceD3D();
+	DestroyDX11Window();
+}
+
 void Visualiser::Run() {
 
 	// Run the game loop
 
 	BeingScene();
+
+	Draw::Line(Vector2(100, 100), Vector2(200, 200), Colour(1.0f, 1.0f, 0.5f, 1.0f), 1.0f);
+
+	
 
 	EndScene();
 }	
