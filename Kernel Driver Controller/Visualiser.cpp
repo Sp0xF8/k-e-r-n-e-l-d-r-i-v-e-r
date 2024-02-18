@@ -5,6 +5,8 @@
 
 #include "visuals.h"
 
+#include "draw.h"
+
 
 
 namespace Visualiser {
@@ -162,6 +164,8 @@ bool Visualiser::CreateDeviceD3D()
 		MessageBoxA(0, "Visualiser::CreateDeviceD3D : Failed to create device and swap chain", "Error", MB_OK);
 		return false;
 	}
+
+	return true;
 }
 
 bool Visualiser::CleanupDeviceD3D()
@@ -231,6 +235,8 @@ void Visualiser::RenderFrame()
 	//ImGui::ShowDemoWindow();
 
 	Visuals::ESP();
+
+	Draw::Line(Vector2(100, 100), Vector2(900, 900), Colour(255, 255, 255, 255), 2);
 	
 
 	ImGui::Render();

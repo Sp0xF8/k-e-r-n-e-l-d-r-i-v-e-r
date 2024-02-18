@@ -59,6 +59,9 @@ struct Vector2 {
 	float x, y;
 };
 
+
+
+
 struct Vector3 {
 	constexpr Vector3(
 		const float x = 0.0f,
@@ -106,3 +109,39 @@ struct Vector3 {
 
 	float x, y, z;
 };
+
+
+// struct matrix 4x2 floats
+struct matrix4x2_t {
+	float m[4][2];
+
+	Vector3 WTS(view_matrix_t matrix) {
+
+		float _x = m[0][0] * matrix[0][0] + m[1][0] * matrix[0][1] + m[2][0] * matrix[0][2] + matrix[0][3];
+		float _y = m[0][0] * matrix[1][0] + m[1][0] * matrix[1][1] + m[2][0] * matrix[1][2] + matrix[1][3];
+
+		float w = m[0][0] * matrix[3][0] + m[1][0] * matrix[3][1] + m[2][0] * matrix[3][2] + matrix[3][3];
+
+		float inv_w = 1.0f / w;
+
+		_x *= inv_w;
+		_y *= inv_w;
+
+		float x = Data::screen_width / 2;
+		float y = Data::screen_height / 2;
+
+		x += 0.5f * _x * Data::screen_width + 0.5f;
+
+		y -= 0.5f * _y * Data::screen_height + 0.5f;
+
+		return { x, y, w };
+	}
+};
+
+// bones 
+
+struct Bones {
+	matrix4x2_t bones[104];
+};
+
+

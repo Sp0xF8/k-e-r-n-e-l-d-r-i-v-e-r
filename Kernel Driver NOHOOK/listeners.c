@@ -12,7 +12,7 @@ PLOAD_IMAGE_NOTIFY_ROUTINE ImageLoadCallback(PUNICODE_STRING FullImageName, HAND
 
 	//DebugMessage("Image Loaded:	%ls\n", FullImageName->Buffer);
 
-	DebugMessage("Image Loaded:	%ls\n", FullImageName->Buffer);
+	//DebugMessage("Image Loaded:	%ls\n", FullImageName->Buffer);
 	
 	if(wcsstr(FullImageName->Buffer, L"\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\bin\\win64\\client.dll"))
 	{
@@ -20,6 +20,7 @@ PLOAD_IMAGE_NOTIFY_ROUTINE ImageLoadCallback(PUNICODE_STRING FullImageName, HAND
 		DebugMessage("DLL Address:	0x%p\n", ImageInfo->ImageBase);
 		DebugMessage("Process ID:	%d\n", ProcessId);
 		CSClient_DllBase = ImageInfo->ImageBase;
+		CSClient_ProcessID = ProcessId;
 	}
 	
 

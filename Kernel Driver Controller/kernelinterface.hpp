@@ -33,8 +33,11 @@ public:
 		ULONG ProcID;
 		DWORD Bytes;
 
-		if (DeviceIoControl(hDriver, IO_GET_PROCESSID, 0, 0, &ProcID, sizeof(ProcID), &Bytes, 0))
+		if (DeviceIoControl(hDriver, IO_GET_PROCESSID, 0, 0, &ProcID, sizeof(ProcID), &Bytes, 0)) {
+		
+			
 			return ProcID;
+		}
 
 		return 0;
 	}
@@ -42,7 +45,7 @@ public:
 	template <typename type>
 	type ReadVirtualMemory(ULONG ProcessId, ULONG ReadAddress, SIZE_T Size)
 	{
-		type buffer;
+		type buffer = type();
 
 
 		if(hDriver == INVALID_HANDLE_VALUE)

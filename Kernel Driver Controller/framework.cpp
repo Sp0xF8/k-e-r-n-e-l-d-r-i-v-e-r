@@ -20,7 +20,7 @@ bool Framework::init() {
 
 	// Get setup info from krnl
 
-	if(!Data::init()) return false;
+	while(!Data::init()) Sleep(1000);
 
 
 	//setup overlay

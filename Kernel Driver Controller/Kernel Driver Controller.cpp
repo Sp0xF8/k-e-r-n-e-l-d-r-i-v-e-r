@@ -12,12 +12,16 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 
+	MessageBox(0, "Cheat Initiated", "Cheat Loaded!", MB_OK | MB_ICONINFORMATION);
+
 	//define nCmdShow as a globally accessable var
 	Visualiser::pCmdShow = nCmdShow;
 
 	if (!Framework::init()) { Framework::shutdown(); }
 
     //std::cout << "Cheat Loaded! - Press END Key to Exit!" << std::endl;
+
+	MessageBox(0, "Cheat Loaded! - Press END Key to Exit!", "Cheat Loaded!", MB_OK | MB_ICONINFORMATION);
 	
 	bool running = true;
 

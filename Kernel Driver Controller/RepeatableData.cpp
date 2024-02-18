@@ -8,35 +8,35 @@
 
 namespace Data {
 
-	//KernelInterface* Driver = new KernelInterface("\\\\.\\KernelDriverNOHOOK");
+	KernelInterface* Driver = new KernelInterface("\\\\.\\KernelDriverNOHOOK");
 	ULONG client_dll;
 	ULONG ProcessID;
 
 	int screen_width;
 	int screen_height;
-
-	uint64_t LocalPlayerPawn;
-	uint64_t EntityList;
 }
 
 
 bool Data::init() 
 {
 
-	/*
+	
 	client_dll = Driver->GetClientAddress();
-	if (!client_dll) {
+	if (client_dll == 0) {
 		return false;
 	}
+
+	MessageBox(0, "Received Clientaddress", "recieved data!", MB_OK | MB_ICONINFORMATION);
 
 	ProcessID = Driver->GetProcessID();
 
-	if (!ProcessID) {
-
+	if (ProcessID == 0) {
 		return false;
 	}
 
-	*/
+	MessageBox(0, "Received ProcessID", "recieved data!", MB_OK | MB_ICONINFORMATION);
+
+	
 
 	screen_height = GetSystemMetrics(SM_CYSCREEN);
 	screen_width = GetSystemMetrics(SM_CXSCREEN);
@@ -45,29 +45,4 @@ bool Data::init()
 }
 
 
-bool Data::setup() {
 
-	if(!init()) {
-		return false;
-	}
-
-	/*
-	Data::LocalPlayerPawn = Driver->ReadVirtualMemory<uint64_t>(ProcessID, client_dll + Offsets::Client::dwLocalPlayerPawn, sizeof(uint64_t));
-
-	if (!Data::LocalPlayerPawn) {
-		return false;
-	}
-	
-
-	Data::EntityList = Driver->ReadVirtualMemory<uint64_t>(ProcessID, client_dll + Offsets::Client::dwEntityList, sizeof(uint64_t));
-
-	if (!Data::EntityList) {
-		return false;
-	}
-	*/
-
-	
-
-
-
-}

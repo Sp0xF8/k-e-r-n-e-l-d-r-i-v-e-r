@@ -64,7 +64,7 @@ NTSTATUS IoControl(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 			// Get the ProcessId)
 			PULONG outputbuffer2 = (PULONG)Irp->AssociatedIrp.SystemBuffer;
 
-			*outputbuffer2 = (ULONG)ProcessID;
+			*outputbuffer2 = (ULONG)CSClient_ProcessID;
 
 			Status = STATUS_SUCCESS;
 			BytesIO = sizeof(*outputbuffer2);
@@ -83,6 +83,10 @@ NTSTATUS IoControl(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 				Status = STATUS_SUCCESS;
 				BytesIO = sizeof(KERNEL_READ_REQUEST);
 			}
+
+			//print data in read request.buffer
+
+			DebugMessage("ReadRequest->Buffer: %s\n", ReadRequest->Buffer);
 
 			break;
 

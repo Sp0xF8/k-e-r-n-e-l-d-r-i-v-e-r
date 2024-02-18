@@ -2,6 +2,7 @@
 #pragma warning(disable: 4047 4024)
 
 #include <ntifs.h>
+#include <ntddk.h>
 
 NTSTATUS NTAPI MmCopyVirtualMemory(
 	PEPROCESS SourceProcess,
