@@ -8,7 +8,7 @@
 namespace Data {
 
 	extern KernelInterface *Driver;
-	extern ULONG client_dll;
+	extern ULONG64 client_dll;
 	extern ULONG ProcessID;
 
 	extern int screen_width;

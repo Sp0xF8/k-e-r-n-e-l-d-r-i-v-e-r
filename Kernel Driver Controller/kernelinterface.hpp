@@ -16,7 +16,7 @@ public:
 		if(hDriver == INVALID_HANDLE_VALUE)
 			return 0;
 
-		ULONG Address;
+		ULONGLONG Address;
 		DWORD Bytes;
 
 		if(DeviceIoControl(hDriver, IO_GET_CLIENTADDRESS, 0, 0, &Address, sizeof(Address), &Bytes, 0))
@@ -42,8 +42,21 @@ public:
 		return 0;
 	}
 
+	_KERNEL_INFO_REQUEST GetInfo() {
+		if (hDriver == INVALID_HANDLE_VALUE)
+			return _KERNEL_INFO_REQUEST();
+
+		_KERNEL_INFO_REQUEST Info;
+		DWORD Bytes;
+
+		if (DeviceIoControl(hDriver, IO_REQUEST_INFO, &Info, sizeof(Info), &Info, sizeof(Info), &Bytes, 0))
+			return Info;
+
+		return _KERNEL_INFO_REQUEST();
+	}
+
 	template <typename type>
-	type ReadVirtualMemory(ULONG ProcessId, ULONG ReadAddress, SIZE_T Size)
+	type ReadVirtualMemory(ULONG ProcessId, ULONG64 ReadAddress, SIZE_T Size)
 	{
 		type buffer = type();
 

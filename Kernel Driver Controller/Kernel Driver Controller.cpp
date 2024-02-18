@@ -14,6 +14,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	MessageBox(0, "Cheat Initiated", "Cheat Loaded!", MB_OK | MB_ICONINFORMATION);
 
+	AllocConsole();
+	FILE* f;
+	freopen_s(&f, "CONOUT$", "w", stdout);
+	
+
+
 	//define nCmdShow as a globally accessable var
 	Visualiser::pCmdShow = nCmdShow;
 
@@ -56,7 +62,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	
 	
 
-
+	FreeConsole();
     return 0;
 
 }

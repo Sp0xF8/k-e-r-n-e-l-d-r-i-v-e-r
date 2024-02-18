@@ -11,13 +11,14 @@
 
 void Visuals::ESP() {
 
+	if (Data::ProcessID == 0) return;
 
 	uintptr_t local_player = Data::Driver->ReadVirtualMemory<uintptr_t>(Data::ProcessID, Data::client_dll + Offsets::Client::dwLocalPlayerPawn, sizeof(uintptr_t));
 
-	int local_health = Data::Driver->ReadVirtualMemory<int>(Data::ProcessID, local_player + Offsets::Client::C_BaseEntity::m_iHealth, sizeof(int));
+	if (local_player == NULL) return;
 	
 
-	Draw::Text({ 10, 10 }, std::to_string(local_health).c_str(), Colour(255, 255, 255, 255), true);
+	Draw::Text({ 10, 10 }, std::to_string(local_player).c_str(), Colour(255, 255, 255, 255), true);
 	
 	/*
 	uintptr_t pGameSceneNode = Data::Driver->ReadVirtualMemory<uintptr_t>(Data::ProcessID, local_player + Offsets::Client::C_BaseEntity::m_pGameSceneNode, sizeof(uintptr_t));

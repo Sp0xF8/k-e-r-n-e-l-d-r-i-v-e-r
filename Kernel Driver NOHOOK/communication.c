@@ -49,9 +49,9 @@ NTSTATUS IoControl(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 			DebugMessage("IO_GET_CLIENTADDRESS\n");
 
 			// Get the address of the client.dll)
-			PULONG outputbuffer = (PULONG)Irp->AssociatedIrp.SystemBuffer;
+			PULONG64 outputbuffer = (PULONG64)Irp->AssociatedIrp.SystemBuffer;
 
-			*outputbuffer = (ULONG)CSClient_DllBase;
+			*outputbuffer = (PULONG64)CSClient_DllBase;
 
 			Status = STATUS_SUCCESS;
 			BytesIO = sizeof(*outputbuffer);
@@ -76,17 +76,18 @@ NTSTATUS IoControl(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 
 			PKERNEL_READ_REQUEST ReadRequest = (PKERNEL_READ_REQUEST)Irp->AssociatedIrp.SystemBuffer;
 
-			PEPROCESS Process;
-
-			if(NT_SUCCESS(PsLookupProcessByProcessId(ReadRequest->ProcessId, &Process))) {
-				KernelReadVirtualMemory(Process, ReadRequest->Address, ReadRequest->Buffer, ReadRequest->Size);
+			DebugMessage("ReadRequest->ProcessId: %d\n", ReadRequest->ProcessId);
+			DebugMessage("ReadRequest->Address: 0x%p\n", ReadRequest->Address);
+			DebugMessage("ReadRequest->Size: %d\n", ReadRequest->Size);
+			if(NT_SUCCESS(KernelReadVirtualMemory(ReadRequest->ProcessId, ReadRequest->Address, ReadRequest->Buffer, ReadRequest->Size))) {
+				
 				Status = STATUS_SUCCESS;
 				BytesIO = sizeof(KERNEL_READ_REQUEST);
 			}
 
 			//print data in read request.buffer
 
-			DebugMessage("ReadRequest->Buffer: %s\n", ReadRequest->Buffer);
+			DebugMessage("ReadRequest->Buffer: %lld\n", ReadRequest->Buffer);
 
 			break;
 
@@ -95,11 +96,24 @@ NTSTATUS IoControl(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 
 			PKERNEL_WRITE_REQUEST WriteRequest = (PKERNEL_WRITE_REQUEST)Irp->AssociatedIrp.SystemBuffer;
 
-			if(NT_SUCCESS(PsLookupProcessByProcessId(WriteRequest->ProcessId, &Process))) {
-				KernelWriteVirtualMemory(Process, WriteRequest->Buffer, WriteRequest->Address, WriteRequest->Size);
+			if(NT_SUCCESS(KernelWriteVirtualMemory(WriteRequest->ProcessId, WriteRequest->Buffer, WriteRequest->Address, WriteRequest->Size))) {
 				Status = STATUS_SUCCESS;
 				BytesIO = sizeof(KERNEL_WRITE_REQUEST);
 			}
+
+			break;
+
+		case IO_REQUEST_INFO:
+
+			DebugMessage("IO_REQUEST_INFO\n");
+
+			PKERNEL_INFO_REQUEST InfoRequest = (PKERNEL_INFO_REQUEST)Irp->AssociatedIrp.SystemBuffer;
+
+			InfoRequest->BaseAddress = (ULONG64)CSClient_DllBase;
+			InfoRequest->ProcessID = (ULONG)CSClient_ProcessID;
+
+			Status = STATUS_SUCCESS;
+			BytesIO = sizeof(KERNEL_INFO_REQUEST);
 
 			break;
 

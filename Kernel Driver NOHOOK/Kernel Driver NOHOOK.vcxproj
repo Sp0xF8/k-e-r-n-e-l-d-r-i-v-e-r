@@ -92,9 +92,12 @@
     </DriverSign>
     <Link>
       <AdditionalOptions>/INTEGRITYCHECK %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
       <AdditionalOptions>/INTEGRITY_CHECK %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -122,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="communication.h" />
     <ClInclude Include="data.h" />
+    <ClInclude Include="defines.h" />
     <ClInclude Include="KernelDriverNOHOOK.h" />
     <ClInclude Include="listeners.h" />
     <ClInclude Include="memory.h" />
