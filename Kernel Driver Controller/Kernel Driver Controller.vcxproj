@@ -135,17 +135,38 @@
   <ItemGroup>
     <ClCompile Include="config.cpp" />
     <ClCompile Include="framework.cpp" />
+    <ClCompile Include="Imgui\imgui.cpp" />
+    <ClCompile Include="Imgui\imgui_demo.cpp" />
+    <ClCompile Include="Imgui\imgui_draw.cpp" />
+    <ClCompile Include="Imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Imgui\imgui_tables.cpp" />
+    <ClCompile Include="Imgui\imgui_widgets.cpp" />
     <ClCompile Include="Kernel Driver Controller.cpp" />
     <ClCompile Include="RepeatableData.cpp" />
+    <ClCompile Include="draw.cpp" />
+    <ClCompile Include="Visualiser.cpp" />
+    <ClCompile Include="visuals.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="communication.hpp" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="draw.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Imgui\imconfig.h" />
+    <ClInclude Include="Imgui\imgui.h" />
+    <ClInclude Include="Imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="Imgui\imgui_impl_win32.h" />
+    <ClInclude Include="Imgui\imgui_internal.h" />
+    <ClInclude Include="Imgui\imstb_rectpack.h" />
+    <ClInclude Include="Imgui\imstb_textedit.h" />
+    <ClInclude Include="Imgui\imstb_truetype.h" />
     <ClInclude Include="kernelinterface.hpp" />
     <ClInclude Include="offsets.h" />
     <ClInclude Include="RepeatableData.h" />
     <ClInclude Include="structs.h" />
+    <ClInclude Include="Visualiser.h" />
+    <ClInclude Include="visuals.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

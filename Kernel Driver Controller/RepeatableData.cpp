@@ -8,7 +8,7 @@
 
 namespace Data {
 
-	KernelInterface* Driver = new KernelInterface("\\\\.\\KernelDriverNOHOOK");
+	//KernelInterface* Driver = new KernelInterface("\\\\.\\KernelDriverNOHOOK");
 	ULONG client_dll;
 	ULONG ProcessID;
 
@@ -23,6 +23,7 @@ namespace Data {
 bool Data::init() 
 {
 
+	/*
 	client_dll = Driver->GetClientAddress();
 	if (!client_dll) {
 		return false;
@@ -34,6 +35,8 @@ bool Data::init()
 
 		return false;
 	}
+
+	*/
 
 	screen_height = GetSystemMetrics(SM_CYSCREEN);
 	screen_width = GetSystemMetrics(SM_CXSCREEN);
@@ -48,6 +51,7 @@ bool Data::setup() {
 		return false;
 	}
 
+	/*
 	Data::LocalPlayerPawn = Driver->ReadVirtualMemory<uint64_t>(ProcessID, client_dll + Offsets::Client::dwLocalPlayerPawn, sizeof(uint64_t));
 
 	if (!Data::LocalPlayerPawn) {
@@ -60,6 +64,9 @@ bool Data::setup() {
 	if (!Data::EntityList) {
 		return false;
 	}
+	*/
+
+	
 
 
 

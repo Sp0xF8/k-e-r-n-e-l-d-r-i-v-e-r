@@ -7,7 +7,7 @@
 
 namespace Data {
 
-	extern KernelInterface *Driver;
+	//extern KernelInterface *Driver;
 	extern ULONG client_dll;
 	extern ULONG ProcessID;
 

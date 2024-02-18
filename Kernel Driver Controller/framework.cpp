@@ -7,7 +7,8 @@ bool Framework::run() {
 
 	// Run the game loop
 
-	Visualiser::Run();
+	Visualiser::RenderFrame();
+
 
 
 
@@ -19,7 +20,7 @@ bool Framework::init() {
 
 	// Get setup info from krnl
 
-	//if(!Data::init()) return false;
+	if(!Data::init()) return false;
 
 
 	//setup overlay

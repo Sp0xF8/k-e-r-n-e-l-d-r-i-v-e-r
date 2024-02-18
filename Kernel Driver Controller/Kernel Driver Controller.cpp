@@ -3,6 +3,7 @@
 
 #pragma warning(disable : 28251)
 
+#include "Visualiser.h"
 
 
 #include "framework.h"
@@ -11,11 +12,16 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 
+	//define nCmdShow as a globally accessable var
+	Visualiser::pCmdShow = nCmdShow;
+
 	if (!Framework::init()) { Framework::shutdown(); }
 
     //std::cout << "Cheat Loaded! - Press END Key to Exit!" << std::endl;
 	
-	while (true)
+	bool running = true;
+
+	while (running)
 		{
 
 			MSG msg = { 0 };
@@ -23,13 +29,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			{
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
-
+				
 				if (msg.message == WM_QUIT)
 				{
 
 					Framework::shutdown();
-					break;
+					running = false;
 				}
+				
 			}
 			else
 			{

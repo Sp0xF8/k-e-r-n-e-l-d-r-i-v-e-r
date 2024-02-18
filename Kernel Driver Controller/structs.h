@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Imgui/imgui.h"
+
 #include <numbers>
 #include <cmath>
 #include "RepeatableData.h"
@@ -24,9 +26,8 @@ struct Colour {
 		r(r), g(g), b(b), a(a) { }
 
 	
-	float* ReturnFloats() {
-		float result[4] = { r, g, b, a };
-		return result;
+	ImU32 to_imu32() const noexcept {
+		return IM_COL32(static_cast<int>(r * 255), static_cast<int>(g * 255), static_cast<int>(b * 255), static_cast<int>(a * 255));
 	}
 
 };
