@@ -132,8 +132,8 @@ bool Visualiser::CreateDeviceD3D()
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 2;
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.RefreshRate.Numerator = 99;
-	sd.BufferDesc.RefreshRate.Denominator = 1;
+	sd.BufferDesc.RefreshRate.Numerator = 240;
+	sd.BufferDesc.RefreshRate.Denominator = 4;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = hWnd;
@@ -236,8 +236,12 @@ void Visualiser::RenderFrame()
 
 	Visuals::ESP();
 
-	Draw::Line(Vector2(100, 100), Vector2(900, 900), Colour(255, 255, 255, 255), 2);
+//#ifdef _DEBUG
+
+	//Draw::Line(Vector2(100, 100), Vector2(900, 900), Colour(1.0f, 1.0f, 0.0f, 1.0f), 2);
 	
+//#endif
+
 
 	ImGui::Render();
 	

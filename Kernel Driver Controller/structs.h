@@ -15,6 +15,7 @@ struct view_matrix_t {
 };
 
 
+
 struct Colour {
 	float r, g, b, a;
 
@@ -24,6 +25,11 @@ struct Colour {
 		const float b = 0.0f,
 		const float a = 0.0f) noexcept :
 		r(r), g(g), b(b), a(a) { }
+
+
+	Colour from_float(const float r, const float g, const float b, const float a) const noexcept {
+		return Colour(r, g, b, a);
+	}
 
 	
 	ImU32 to_imu32() const noexcept {
@@ -69,6 +75,12 @@ struct Vector3 {
 		const float z = 0.0f) noexcept :
 		x(x), y(y), z(z) { }
 
+
+	//converts 3d vector to 2d vector
+	constexpr Vector2 to_vector2() const noexcept {
+		return Vector2(x, y);
+	}
+
 	constexpr const Vector3 operator-(const Vector3& other) const noexcept {
 		return Vector3(x - other.x, y - other.y, z - other.z);
 	}
@@ -87,24 +99,23 @@ struct Vector3 {
 
 	Vector3 WTS(view_matrix_t matrix) {
 
-		float _x = x * matrix[0][0] + y * matrix[0][1] + z * matrix[0][2] + matrix[0][3];
-		float _y = x * matrix[1][0] + y * matrix[1][1] + z * matrix[1][2] + matrix[1][3];
+		float _w = matrix[3][0] * x + matrix[3][1] * y + matrix[3][2] * z + matrix[3][3];
 
-		float w = x * matrix[3][0] + y * matrix[3][1] + z * matrix[3][2] + matrix[3][3];
+		if (_w < 0.01f)
+			return { -1, -1, 0 };
 
-		float inv_w = 1.0f / w;
+		float _x = matrix[0][0] * x + matrix[0][1] * y + matrix[0][2] * z + matrix[0][3];
+		float _y = matrix[1][0] * x + matrix[1][1] * y + matrix[1][2] * z + matrix[1][3];
 
-		_x *= inv_w;
-		_y *= inv_w;
 
-		float x = Data::screen_width / 2;
-		float y = Data::screen_height / 2;
+		_x = (Data::screen_width / 2) * (1 + _x / _w);
+		_y = (Data::screen_height / 2) * (1 - _y / _w);
 
-		x += 0.5f * _x * Data::screen_width + 0.5f;
+		
 
-		y -= 0.5f * _y * Data::screen_height + 0.5f;
 
-		return { x, y, w };
+
+		return { _x, _y, _w };
 	}
 
 	float x, y, z;
@@ -117,23 +128,23 @@ struct matrix4x2_t {
 
 	Vector3 WTS(view_matrix_t matrix) {
 
-		float _x = m[0][0] * matrix[0][0] + m[1][0] * matrix[0][1] + m[2][0] * matrix[0][2] + matrix[0][3];
-		float _y = m[0][0] * matrix[1][0] + m[1][0] * matrix[1][1] + m[2][0] * matrix[1][2] + matrix[1][3];
 
-		float w = m[0][0] * matrix[3][0] + m[1][0] * matrix[3][1] + m[2][0] * matrix[3][2] + matrix[3][3];
+		float w = matrix[3][0] * m[0][0] + matrix[3][1] * m[1][0] + matrix[3][2] * m[2][0] + matrix[3][3];
 
-		float inv_w = 1.0f / w;
+		if (w < 0.01f)
+			return { -1, -1, 0 };
 
-		_x *= inv_w;
-		_y *= inv_w;
+		float x = matrix[0][0] * m[0][0] + matrix[0][1] * m[1][0] + matrix[0][2] * m[2][0] + matrix[0][3];
+		float y = matrix[1][0] * m[0][0] + matrix[1][1] * m[1][0] + matrix[1][2] * m[2][0] + matrix[1][3];
 
-		float x = Data::screen_width / 2;
-		float y = Data::screen_height / 2;
 
-		x += 0.5f * _x * Data::screen_width + 0.5f;
+		x = (Data::screen_width / 2) * (1 + x / w);
+		y = (Data::screen_height / 2) * (1 - y / w);
 
-		y -= 0.5f * _y * Data::screen_height + 0.5f;
 
+
+
+	
 		return { x, y, w };
 	}
 };
